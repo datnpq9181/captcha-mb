@@ -47,7 +47,7 @@ function getCaptcha() {
     )
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.imageString);
+        // console.log(res.imageString);
         return getCaptchaValue(res.imageString).then((value) => {
           console.log(value);
           saveImage(res.imageString, value.data.captcha);
@@ -61,14 +61,23 @@ function getCaptcha() {
   });
 }
 
-for (let i = 0; i < 10; i++) {
-  delay(5000).then(() => {
+function getCaptchaMultipleTimes(count, delayTime) {
+  let i = 0;
+  function getCaptchaWithDelay() {
     getCaptcha()
       .then(() => {
-        console.log("done");
+        console.log(`done ${i}`);
+        i++;
+        if (i < count) {
+          setTimeout(getCaptchaWithDelay, delayTime);
+        }
       })
       .catch((error) => {
         console.error(error);
       });
-  });
+  }
+
+  getCaptchaWithDelay();
 }
+
+getCaptchaMultipleTimes(60, 30000); // Get captcha 60 times, delay 30 seconds between each call
