@@ -61,23 +61,16 @@ function getCaptcha() {
   });
 }
 
-function getCaptchaMultipleTimes(count, delayTime) {
-  let i = 0;
-  function getCaptchaWithDelay() {
-    getCaptcha()
-      .then(() => {
-        console.log(`done ${i}`);
-        i++;
-        if (i < count) {
-          setTimeout(getCaptchaWithDelay, delayTime);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+async function main() {
+  for (let i = 1; i < 200; i++) {
+    console.log("start ", i);
+    if (i % 60 == 0) {
+      console.log("sleep 30s");
+      await delay(30000);
+    }
+    await getCaptcha();
+    console.log("done ", i);
   }
-
-  getCaptchaWithDelay();
 }
 
-getCaptchaMultipleTimes(60, 30000); // Get captcha 60 times, delay 30 seconds between each call
+main();
