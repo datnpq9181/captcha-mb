@@ -62,7 +62,7 @@ function getCaptcha() {
 }
 
 async function main() {
-  for (let i = 1; i < 200; i++) {
+  for (let i = 1; i < 3000; i++) {
     console.log("start ", i);
     if (i % 60 == 0) {
       console.log("sleep 30s");
