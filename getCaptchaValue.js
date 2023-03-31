@@ -7,7 +7,7 @@ function getCaptchaValue(captchaBase64) {
   form.append("img_base64", captchaBase64);
 
   return new Promise((resolve, reject) => {
-    fetch("https://ecaptcha.sieuthicode.net/api/captcha/mbbank", {
+    fetch("https://ecaptcha.sieuthicode.net/api/captcha/captchatext", { //https://ecaptcha.sieuthicode.net/api/captcha/agribank 
       method: "POST",
       body: form,
     })
